@@ -24,8 +24,8 @@ long lastEncoderPosition = 0;
 // Map encoder position to joystick movement
 int mapEncoderToJoystick(long encoderPos) {
   // Map encoder position to joystick range (-512 to 512)
-  // Invert the value by multiplying by -1 to swap directions
-  return constrain(-1 * (encoderPos / 2), -512, 512);
+  // Adjust the division factor to control sensitivity
+  return constrain(encoderPos / 2, -512, 512);
 }
 
 void setup() {
@@ -47,22 +47,6 @@ void loop() {
 
   // Read encoder position
   encoderPosition = myEncoder.read();
-  
-  // Check if encoder position changed and output direction with value
-  if (encoderPosition != lastEncoderPosition) {
-    int movement = encoderPosition - lastEncoderPosition;
-    
-    if (encoderPosition > lastEncoderPosition) {
-      Serial.print("Encoder: LEFT (");
-      Serial.print(-movement); // Negative for left movement
-      Serial.println(")");
-    } else {
-      Serial.print("Encoder: RIGHT (");
-      Serial.print(abs(movement)); // Positive for right movement
-      Serial.println(")");
-    }
-    lastEncoderPosition = encoderPosition;
-  }
   
   // Map encoder to X (horizontal) axis of joystick
   Joystick.X(mapEncoderToJoystick(encoderPosition) + 512); // Add 512 to get 0-1023 range
