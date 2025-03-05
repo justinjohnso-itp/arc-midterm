@@ -1,12 +1,11 @@
 {
 	"folders": [
 		{
-			"name": "unity-project",
-			"path": "unity-project"
-		},
-		{
 			"name": "teensy-controller",
 			"path": "teensy-controller"
+		},
+		{
+			"path": "[ARC] Tempest 3D"
 		}
 	],
 	"settings": {
