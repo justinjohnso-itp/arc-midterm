@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
     private bool isGameOver = false;
     private bool hitCooldown = false;
 
-    public Material yellowNeonMaterial;
-
     void Start()
     {
         // Spawn player at starting position with no rotation
@@ -31,9 +29,6 @@ public class GameManager : MonoBehaviour
         SpawnLifeIndicators();
         
         UpdateScoreDisplay();
-
-        // Create neon grid
-        CreateNeonGrid();
     }
 
     // Separate method to spawn life indicators
@@ -163,15 +158,5 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemy);
         }
-    }
-
-    void CreateNeonGrid()
-    {
-        GameObject gridObj = new GameObject("NeonGrid");
-        NeonGridRenderer gridRenderer = gridObj.AddComponent<NeonGridRenderer>();
-        gridRenderer.rotationPlane = rotationPlane;
-        gridRenderer.yellowNeonMaterial = yellowNeonMaterial;
-        gridRenderer.beamLength = spawnZ;  // Use spawn Z for beam length
-        gridRenderer.beamCount = 12;       // Number of beams around perimeter
     }
 }

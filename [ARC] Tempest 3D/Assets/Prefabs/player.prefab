@@ -105,9 +105,6 @@ MonoBehaviour:
   rotationPlane: {fileID: 8148622532507216450, guid: ad5270619622d4c26b6aece2cc4f82ad, type: 3}
   rotationSpeed: 300
   bulletPrefab: {fileID: 4682664195171525307, guid: 84837f7a2f93a42e8b733d7c1ccc09f3, type: 3}
-  neonYellowMaterial: {fileID: 2100000, guid: c750457232eb143b5baaae8885edede9, type: 2}
-  connectionBeamRadius: 0.03
-  vertexCount: 12
 --- !u!82 &8453185000322967430
 AudioSource:
   m_ObjectHideFlags: 0
