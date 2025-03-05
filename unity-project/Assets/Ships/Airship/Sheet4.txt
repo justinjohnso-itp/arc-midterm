@@ -1,0 +1,860 @@
+Guid	54b23b68-c729-4234-9df2-6a67cc4b6bb0
+イベント名	Airship_1
+シート	TakeOff
+	グラフィック	1a01c572-eef5-4576-a365-90cc2151c45f
+	モーション	Landed
+	向き	-1
+	向き固定	True
+	物理	False
+	衝突判定	False
+	イベントと衝突	False
+	移動速度	0
+	移動頻度	3
+	移動タイプ	NONE
+	押せる	True
+	条件	COND_TYPE_SWITCH
+		比較演算子	EQUAL
+		インデックス	-1
+		オプション	0
+		ローカル参照	True
+		ポインタ	-1
+		ポインタ名	
+		参照名	TakeOff
+	条件終了
+	スクリプト
+		開始条件	AUTO
+		高さ無視	False
+		判定拡張	False
+		コマンド	COMMENT
+			文字列	Set Y-Up Limit so player doesn't fly up forever
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	SkyLimit
+			整数	0
+			小数	20
+			整数	0
+		コマンド終了
+		コマンド	COMMENT
+			文字列	Get current location of airship and make player walk into it. set turning speed down so controls don't look crazy, set control mode to tank
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	ShipX
+			整数	14
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	ShipY
+			整数	16
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	ShipZ
+			整数	15
+			整数	0
+		コマンド終了
+		コマンド	PLHIDE
+			整数	1
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	SW_CAMLOCK
+			整数	0
+			整数	0
+			整数	0
+			整数	1
+			整数	1
+			整数	1
+		コマンド終了
+		コマンド	STEPSOUND
+			整数	0
+			整数	100
+		コマンド終了
+		コマンド	PLWALK_TGT
+			文字列	Var
+			ローカル変数	ShipX
+			ローカル変数	ShipZ
+			整数	1
+			小数	0
+			小数	0.5
+			整数	0
+			整数	1
+			整数	0
+			整数	0
+			整数	0
+			整数	1
+			整数	1
+		コマンド終了
+		コマンド	ROTATEPL_SPEED
+			小数	2
+		コマンド終了
+		コマンド	CHG_CONTROL
+			整数	0
+		コマンド終了
+		コマンド	COMMENT
+			文字列	Initiate take-off animation, y-axis raise and align graphic orientation to players for smooth transition
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerOrientation
+			整数	36
+			整数	0
+		コマンド終了
+		コマンド	MOTION
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	TakeOff
+		コマンド終了
+		コマンド	WAIT
+			小数	0.3
+			整数	1
+		コマンド終了
+		コマンド	CHANGE_PLAYER_HEIGHT
+			整数	2
+			小数	3
+			小数	0.5
+			整数	1
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	ROTATE
+			整数	8
+			ローカル変数	PlayerOrientation
+			整数	0
+		コマンド終了
+		コマンド	CHANGE_HEIGHT
+			整数	2
+			小数	3
+			小数	0.3
+			整数	0
+			整数	1
+			整数	1
+		コマンド終了
+		コマンド	WAIT
+			小数	0.3
+			整数	1
+		コマンド終了
+		コマンド	COMMENT
+			文字列	Finish takeoff commands and switch 1st party members graphic to airship for easy control. disable menu call during flight
+		コマンド終了
+		コマンド	WALK_IN_ROWS_ORDER
+			整数	1
+			整数	2
+			Guid	8d2a13f5-89ec-4fc0-814d-70034e171aaf
+		コマンド終了
+		コマンド	WALK_IN_ROWS
+			整数	1
+		コマンド終了
+		コマンド	COMMENT_OUT
+		コマンド終了
+		コマンド	PLGRAPHIC
+			整数	1
+			Guid	aeff91a1-47c7-4375-a8c6-4e9d46bcba99
+			整数	0
+			Guid	00000000-0000-0000-0000-000000000000
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Wait
+			整数	0
+			整数	0
+			整数	1
+			整数	0
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	EVHIDE
+			整数	1
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	PLHIDE
+			整数	0
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	PLWALKSPEED
+			整数	2
+		コマンド終了
+		コマンド	SWITCH
+			変数	N:AirshipFlight
+			整数	0
+		コマンド終了
+		コマンド	SWITCH
+			ローカル変数	TakeOff
+			整数	1
+		コマンド終了
+	スクリプト終了
+シート終了
+シート	In Air
+	グラフィック	00000000-0000-0000-0000-000000000000
+	向き	-1
+	向き固定	False
+	物理	False
+	衝突判定	False
+	イベントと衝突	False
+	移動速度	0
+	移動頻度	3
+	移動タイプ	NONE
+	押せる	True
+	判定拡張X	0.1
+	判定拡張Z	0.1
+	判定拡張Y	0.1
+	条件	COND_TYPE_SWITCH
+		比較演算子	EQUAL
+		インデックス	-1
+		オプション	0
+		ローカル参照	False
+		ポインタ	-1
+		ポインタ名	
+		参照名	AirshipFlight
+	条件終了
+	スクリプト
+		開始条件	PARALLEL
+		高さ無視	False
+		判定拡張	False
+		コマンド	COMMENT
+			文字列	This sheet listens to key input and location data.
+		コマンド終了
+		コマンド	GET_TERRAIN
+			整数	0
+			整数	1
+			ローカル変数	MapY
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerOrientation
+			整数	36
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerX
+			整数	18
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerZ
+			整数	18
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerY
+			整数	19
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	Land
+			整数	12
+			整数	20
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	Raise
+			整数	12
+			整数	24
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	Lower
+			整数	12
+			整数	25
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	TurnL
+			整数	12
+			整数	2
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	TurnR
+			整数	12
+			整数	3
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	Reverse
+			整数	12
+			整数	1
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	Foward
+			整数	12
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	Fast
+			整数	12
+			整数	6
+			整数	0
+		コマンド終了
+		コマンド	COMMENT
+			文字列	Remove this option if you do not use a airship interior map.
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			変数	N:ShipMap
+			整数	12
+			整数	5
+			整数	0
+		コマンド終了
+	スクリプト終了
+シート終了
+シート	Movements
+	並列シート	true
+	グラフィック	00000000-0000-0000-0000-000000000000
+	向き	-1
+	向き固定	False
+	物理	False
+	衝突判定	True
+	イベントと衝突	True
+	移動速度	0
+	移動頻度	0
+	移動タイプ	NONE
+	押せる	True
+	条件	COND_TYPE_SWITCH
+		比較演算子	EQUAL
+		インデックス	-1
+		オプション	0
+		ローカル参照	False
+		ポインタ	-1
+		ポインタ名	
+		参照名	AirshipFlight
+	条件終了
+	スクリプト
+		開始条件	PARALLEL
+		高さ無視	False
+		判定拡張	False
+		コマンド	COMMENT
+			文字列	This sheet checks the various key inputs from the listen sheet and executes motions accordingly. These movements are meant for tank-control mode. Great for swimming down a long corridor. Please check SwimSettings2 for regular operation swimming
+		コマンド終了
+		コマンド	MOTION
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Wait
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	Raise
+			整数	0
+			整数	3
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	PlayerY
+			ローカル変数	SkyLimit
+			整数	5
+		コマンド終了
+		コマンド	CHANGE_PLAYER_HEIGHT
+			整数	2
+			小数	0.5
+			小数	0.1
+			整数	0
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	CHANGE_HEIGHT
+			整数	3
+			ローカル変数	PlayerY
+			小数	0.1
+			整数	0
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	Lower
+			整数	0
+			整数	3
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	PlayerY
+			ローカル変数	MapY
+			整数	4
+		コマンド終了
+		コマンド	SW_DASH
+			整数	1
+		コマンド終了
+		コマンド	CHANGE_PLAYER_HEIGHT
+			整数	2
+			小数	-0.5
+			小数	0.1
+			整数	0
+			整数	0
+			整数	1
+		コマンド終了
+		コマンド	CHANGE_HEIGHT
+			整数	3
+			ローカル変数	PlayerY
+			小数	0.1
+			整数	0
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	Foward
+			整数	0
+			整数	3
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	Fast
+			整数	0
+			整数	3
+		コマンド終了
+		コマンド	PLWALKSPEED
+			整数	3
+		コマンド終了
+		コマンド	PLMOTION
+			整数	1
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Run
+			整数	0
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	PLWALKSPEED
+			整数	2
+		コマンド終了
+		コマンド	PLMOTION
+			整数	1
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Walk
+			整数	0
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	PLMOTION
+			整数	1
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Wait
+			整数	0
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	Reverse
+			整数	0
+			整数	3
+		コマンド終了
+		コマンド	SW_DASH
+			整数	1
+		コマンド終了
+		コマンド	PLWALKSPEED
+			整数	0
+		コマンド終了
+		コマンド	PLMOTION
+			整数	1
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Reverse
+			整数	0
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	SW_DASH
+			整数	0
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	TurnL
+			整数	0
+			整数	3
+		コマンド終了
+		コマンド	PLMOTION
+			整数	1
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	TurnL
+			整数	0
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	TurnR
+			整数	0
+			整数	3
+		コマンド終了
+		コマンド	PLMOTION
+			整数	1
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	TurnR
+			整数	0
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	IFVARIABLE
+			ローカル変数	Land
+			整数	1
+			整数	0
+		コマンド終了
+		コマンド	GET_TERRAIN
+			整数	0
+			整数	1
+			ローカル変数	MapY
+		コマンド終了
+		コマンド	CHANGE_PLAYER_HEIGHT
+			整数	3
+			ローカル変数	MapY
+			小数	1
+			整数	0
+			整数	1
+			整数	0
+		コマンド終了
+		コマンド	PLMOTION
+			整数	1
+			Guid	00000000-0000-0000-0000-000000000000
+			整数	0
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Landed
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerX
+			整数	17
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerY
+			整数	19
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerZ
+			整数	18
+			整数	0
+		コマンド終了
+		コマンド	EVHIDE
+			整数	1
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	PLHIDE
+			整数	1
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	WALK_IN_ROWS_ORDER
+			整数	8
+			整数	0
+			整数	0
+			整数	0
+			整数	1
+			整数	0
+			整数	2
+			整数	0
+			整数	3
+			整数	0
+			整数	4
+			整数	0
+			整数	5
+			整数	0
+			整数	6
+			整数	0
+			整数	7
+		コマンド終了
+		コマンド	WALK_IN_ROWS
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	PlayerOrientation
+			整数	36
+			整数	0
+		コマンド終了
+		コマンド	ROTATE
+			整数	8
+			ローカル変数	PlayerOrientation
+			整数	0
+		コマンド終了
+		コマンド	EVWALK_TGT
+			文字列	Var
+			ローカル変数	PlayerX
+			ローカル変数	PlayerZ
+			整数	0
+			ローカル変数	PlayerOrientation
+			小数	0
+			整数	0
+			整数	1
+			整数	0
+			整数	0
+			整数	1
+			ローカル変数	PlayerY
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	GRAPHIC
+			Guid	1a01c572-eef5-4576-a365-90cc2151c45f
+			文字列	Landed
+		コマンド終了
+		コマンド	FALL_PLAYER
+			小数	1
+			整数	1
+		コマンド終了
+		コマンド	EVHIDE
+			整数	0
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	ShipX
+			整数	14
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			ローカル変数	ShipZ
+			整数	15
+			整数	0
+		コマンド終了
+		コマンド	VARIABLE
+			整数	0
+			ローカル変数	ShipZ
+			整数	0
+			整数	2
+			整数	1
+		コマンド終了
+		コマンド	VARIABLE
+			整数	0
+			ローカル変数	ShipX
+			整数	0
+			整数	2
+			整数	1
+		コマンド終了
+		コマンド	PLWALK_TGT
+			文字列	Var
+			ローカル変数	ShipX
+			ローカル変数	ShipZ
+			整数	1
+			小数	0
+			小数	0.5
+			整数	0
+			整数	1
+			整数	0
+			整数	0
+			整数	0
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	PLWALKSPEED
+			整数	0
+		コマンド終了
+		コマンド	ROTATEPL_SPEED
+			小数	18
+		コマンド終了
+		コマンド	PLHIDE
+			整数	0
+			小数	0
+			整数	1
+		コマンド終了
+		コマンド	SW_JUMP
+			整数	0
+		コマンド終了
+		コマンド	SW_CAMLOCK
+			整数	0
+			整数	0
+			整数	1
+			整数	1
+			整数	1
+			整数	1
+		コマンド終了
+		コマンド	CHG_CONTROL
+			整数	1
+		コマンド終了
+		コマンド	SWITCH
+			変数	N:AirshipFlight
+			整数	1
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+		コマンド	COMMENT
+			文字列	Remove this option if you do not use a airship interior map.
+		コマンド終了
+		コマンド	IFVARIABLE
+			変数	N:ShipMap
+			整数	1
+			整数	0
+		コマンド終了
+		コマンド	COMMENT
+			文字列	Store current in-flight location to return to when leaving ship-scene
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			変数	N:AirshipX
+			整数	17
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			変数	N:AirshipY
+			整数	19
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			変数	N:AirshipZ
+			整数	19
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			変数	N:AirshipY
+			整数	36
+			整数	0
+		コマンド終了
+		コマンド	HLVARIABLE
+			整数	0
+			変数	N:AirMapID
+			整数	39
+			整数	0
+		コマンド終了
+		コマンド	SCREEN_FADE
+			小数	0
+			整数	1
+			整数	1
+		コマンド終了
+		コマンド	WALK_IN_ROWS_ORDER
+			整数	8
+			整数	0
+			整数	0
+			整数	0
+			整数	1
+			整数	0
+			整数	2
+			整数	0
+			整数	3
+			整数	0
+			整数	4
+			整数	0
+			整数	5
+			整数	0
+			整数	6
+			整数	0
+			整数	7
+		コマンド終了
+		コマンド	WALK_IN_ROWS
+			整数	0
+		コマンド終了
+		コマンド	SW_JUMP
+			整数	0
+		コマンド終了
+		コマンド	CHG_CONTROL
+			整数	1
+		コマンド終了
+		コマンド	SW_CAMLOCK
+			整数	0
+			整数	0
+			整数	1
+			整数	1
+			整数	1
+			整数	1
+		コマンド終了
+		コマンド	PLMOVE
+			スポット	334f17b4-c3c3-4696-87d9-ffe217c4b0d9|1000|5|0.5|2.5
+			整数	2
+		コマンド終了
+		コマンド	SCREEN_FADE
+			小数	0
+			整数	0
+			整数	1
+		コマンド終了
+		コマンド	SWITCH
+			変数	N:AirshipFlight
+			整数	1
+		コマンド終了
+		コマンド	ELSE
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+	スクリプト終了
+シート終了
+シート	Landed
+	グラフィック	1a01c572-eef5-4576-a365-90cc2151c45f
+	モーション	Landed
+	向き	-1
+	向き固定	True
+	物理	False
+	衝突判定	True
+	イベントと衝突	True
+	移動速度	0
+	移動頻度	3
+	移動タイプ	NONE
+	押せる	True
+	条件	COND_TYPE_SWITCH
+		比較演算子	EQUAL
+		インデックス	-1
+		オプション	1
+		ローカル参照	True
+		ポインタ	-1
+		ポインタ名	
+		参照名	TakeOff
+	条件終了
+	条件	COND_TYPE_SWITCH
+		比較演算子	EQUAL
+		インデックス	-1
+		オプション	1
+		ローカル参照	False
+		ポインタ	-1
+		ポインタ名	
+		参照名	AirshipFlight
+	条件終了
+	スクリプト
+		開始条件	TALK
+		高さ無視	False
+		判定拡張	False
+		コマンド	SWITCH
+			ローカル変数	TakeOff
+			整数	0
+		コマンド終了
+	スクリプト終了
+シート終了

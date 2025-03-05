@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "unity-project",
+			"path": "unity-project"
+		},
+		{
+			"name": "teensy-controller",
+			"path": "teensy-controller"
+		}
+	],
+	"settings": {
+		"twee3LanguageTools.storyformat.current": "sugarcube-2",
+		"twee3LanguageTools.passage.list": true,
+		"twee3LanguageTools.passage.group": "File"
+	}
+}

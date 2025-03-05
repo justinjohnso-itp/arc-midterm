@@ -1,0 +1,4 @@
+repository "[ARC] Steampunk Simon@jj4123@cloud"
+  path "/"
+    br "/main"
+    co "/main"

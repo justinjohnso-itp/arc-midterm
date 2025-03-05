@@ -1,0 +1,83 @@
+Guid	45017bb9-f0f2-426c-a117-9f01c15daf9b
+イベント名	Compass
+シート	Event Sheet
+	グラフィック	32ddfd09-dc6d-4a53-b64b-527180a8ffdb
+	向き	-1
+	向き固定	False
+	物理	False
+	衝突判定	True
+	イベントと衝突	True
+	移動速度	0
+	移動頻度	0
+	移動タイプ	NONE
+	押せる	True
+	スクリプト
+		開始条件	TALK
+		高さ無視	False
+		判定拡張	False
+		コマンド	MESSAGE
+			文字列	Take control of the airship?
+			整数	1
+			整数	0
+		コマンド終了
+		コマンド	CHOICES
+			整数	2
+			文字列	Yes
+			文字列	No
+			整数	4
+			変数	
+			変数	
+		コマンド終了
+		コマンド	VARIABLE
+			整数	0
+			変数	N:ShipMap
+			整数	0
+			整数	0
+			整数	0
+		コマンド終了
+		コマンド	PLHIDE
+			整数	1
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	PLROTATE
+			整数	8
+			変数	N:AirshipOrientation
+			整数	0
+		コマンド終了
+		コマンド	PLMOVE
+			変数	N:AirshipX
+			変数	N:AirshipZ
+			整数	0
+			整数	1
+			変数	N:AirMapID
+			整数	1
+			変数	N:AirshipY
+		コマンド終了
+		コマンド	WALK_IN_ROWS_ORDER
+			整数	1
+			整数	2
+			Guid	8d2a13f5-89ec-4fc0-814d-70034e171aaf
+		コマンド終了
+		コマンド	WALK_IN_ROWS
+			整数	1
+		コマンド終了
+		コマンド	PLHIDE
+			整数	0
+			小数	0
+			整数	0
+		コマンド終了
+		コマンド	CHG_CONTROL
+			整数	0
+		コマンド終了
+		コマンド	SWITCH
+			変数	N:AirshipFlight
+			整数	0
+		コマンド終了
+		コマンド	BRANCH
+			整数	1
+		コマンド終了
+		コマンド	ENDIF
+		コマンド終了
+	スクリプト終了
+シート終了
