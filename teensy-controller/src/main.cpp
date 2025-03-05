@@ -21,12 +21,10 @@ Bounce encoderButton = Bounce(ENCODER_BUTTON_PIN, 10);
 long encoderPosition = 0;
 long lastEncoderPosition = 0;
 
-// Map encoder position to joystick movement
-int mapEncoderToJoystick(long encoderPos) {
-  // Map encoder position to joystick range (-512 to 512)
-  // Invert the value by multiplying by -1 to swap directions
-  return constrain(-1 * (encoderPos / 2), -512, 512);
-}
+// Direction values for joystick (-1, 0, or 1)
+int encoderDirection = 0;
+unsigned long lastEncoderMoveTime = 0;
+const unsigned long encoderTimeout = 50; // ms to reset direction to 0 after no movement
 
 void setup() {
   // Configure pins
@@ -48,24 +46,34 @@ void loop() {
   // Read encoder position
   encoderPosition = myEncoder.read();
   
-  // Check if encoder position changed and output direction with value
+  // Check if encoder position changed and set direction
   if (encoderPosition != lastEncoderPosition) {
-    int movement = encoderPosition - lastEncoderPosition;
-    
+    // Determine direction (-1 for left, +1 for right)
+    // Note: We're swapping the directions as requested previously
     if (encoderPosition > lastEncoderPosition) {
+      encoderDirection = -1; // LEFT
       Serial.print("Encoder: LEFT (");
-      Serial.print(-movement); // Negative for left movement
+      Serial.print(encoderDirection);
       Serial.println(")");
     } else {
+      encoderDirection = 1;  // RIGHT
       Serial.print("Encoder: RIGHT (");
-      Serial.print(abs(movement)); // Positive for right movement
+      Serial.print(encoderDirection);
       Serial.println(")");
     }
     lastEncoderPosition = encoderPosition;
+    lastEncoderMoveTime = millis();
+  } else {
+    // Reset direction to 0 if no movement for a while
+    if (encoderDirection != 0 && (millis() - lastEncoderMoveTime > encoderTimeout)) {
+      encoderDirection = 0;
+    }
   }
   
-  // Map encoder to X (horizontal) axis of joystick
-  Joystick.X(mapEncoderToJoystick(encoderPosition) + 512); // Add 512 to get 0-1023 range
+  // Map encoder direction to joystick X axis
+  // Convert from -1/0/+1 to joystick range (0-1023)
+  int joystickValue = 512 + (encoderDirection * 512); // 0=left, 512=center, 1023=right
+  Joystick.X(joystickValue);
 
   // Handle button 1 (q key)
   if (button1.fallingEdge()) {
@@ -95,11 +103,6 @@ void loop() {
   if (encoderButton.risingEdge()) {
     Keyboard.release('e');
     Serial.println("E released");
-  }
-
-  // Reset encoder position if it gets too large or small
-  if (abs(encoderPosition) > 1000) {
-    myEncoder.write(encoderPosition > 0 ? 1000 : -1000);
   }
 
   // Small delay to avoid flooding
