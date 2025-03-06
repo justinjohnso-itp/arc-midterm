@@ -1328,7 +1328,8 @@ MonoBehaviour:
   enemy: {fileID: 6180379941445172611, guid: 6e13bcd0e77e24010a110853fc592357, type: 3}
   rotationPlane: {fileID: 8148622532507216450, guid: ad5270619622d4c26b6aece2cc4f82ad, type: 3}
   scoreText: {fileID: 1017164627}
-  highScoreText: {fileID: 0}
+  highScoreText: {fileID: 1245617983}
+  gameOverText: {fileID: 1745807562}
   life: {fileID: 8337256682491346027, guid: ccb993c3353c54a3dbf1be56bea8d414, type: 3}
   score: 0
 --- !u!4 &1152350131
@@ -1568,7 +1569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1245617982
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1621,10 +1622,10 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.032395888, g: 0.31967518, b: 0.9811321, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
@@ -1922,7 +1923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1745807561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1973,10 +1974,10 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.9622642, g: 0.5521918, b: 0.11347453, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}

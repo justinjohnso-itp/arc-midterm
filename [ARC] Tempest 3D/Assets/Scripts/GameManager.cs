@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     private float spawnZ = 200f;
     private GameObject playerInstance;
     private bool isGameOver = false;
-    private bool hitCooldown = false;
     private float restartDelay = 3f; // Time to wait before returning to title screen
 
     void Start()
@@ -134,12 +133,11 @@ public class GameManager : MonoBehaviour
 
     public void PlayerHit()
     {
-        // Prevent hit processing if already in cooldown or game over
-        if (hitCooldown || isGameOver) return;
+        // Prevent hit processing if game over
+        if (isGameOver) return;
         
         Debug.Log("Player hit: Lives remaining = " + lives);
         lives--;
-        hitCooldown = true;
         
         // Remove life indicator UI
         GameObject[] lifeIcons = GameObject.FindGameObjectsWithTag("Life");
@@ -154,17 +152,6 @@ public class GameManager : MonoBehaviour
             isGameOver = true;
             GameOver();
         }
-        else
-        {
-            // Only reset hit cooldown if game is not over
-            StartCoroutine(ResetHitCooldown());
-        }
-    }
-    
-    IEnumerator ResetHitCooldown()
-    {
-        yield return new WaitForSeconds(1f);
-        hitCooldown = false;
     }
     
     void GameOver()
