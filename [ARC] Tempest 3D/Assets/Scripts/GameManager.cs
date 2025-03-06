@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,17 +9,32 @@ public class GameManager : MonoBehaviour
     public GameObject enemy;
     public GameObject rotationPlane;
     public TMP_Text scoreText;
+    public TMP_Text highScoreText;
+    public TMP_Text gameOverText;
     public GameObject life;
     
-    public int score = 0; // Made public for consistency
-    private int lives = 3;
+    public int score = 0;
+    private static int lives = 3; // Made static to access from TitleScript
+    private int highScore;
     private float spawnZ = 200f;
     private GameObject playerInstance;
     private bool isGameOver = false;
     private bool hitCooldown = false;
+    private float restartDelay = 3f; // Time to wait before returning to title screen
 
     void Start()
     {
+        // Load high score at start
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        
+        // Hide game over text initially
+        if (highScoreText != null)
+            highScoreText.gameObject.SetActive(false);
+        
+        // Hide game over text initially    
+        if (gameOverText != null)
+            gameOverText.gameObject.SetActive(false);
+            
         // Spawn player at starting position with no rotation
         playerInstance = Instantiate(player, new Vector3(0, -4, -1), Quaternion.identity);
         
@@ -29,6 +45,12 @@ public class GameManager : MonoBehaviour
         SpawnLifeIndicators();
         
         UpdateScoreDisplay();
+    }
+
+    // Static method to reset lives from TitleScript
+    public static void ResetLives()
+    {
+        lives = 3;
     }
 
     // Separate method to spawn life indicators
@@ -91,13 +113,22 @@ public class GameManager : MonoBehaviour
     {
         score += 1;
         UpdateScoreDisplay();
+        
+        // Update high score if current score is higher
+        if (score > highScore)
+        {
+            highScore = score;
+            // Save high score immediately
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
+        }
     }
 
     void UpdateScoreDisplay()
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + score;
+            scoreText.text = "SCORE: " + score;
         }
     }
 
@@ -123,9 +154,11 @@ public class GameManager : MonoBehaviour
             isGameOver = true;
             GameOver();
         }
-        
-        // Reset hit cooldown after a brief delay
-        StartCoroutine(ResetHitCooldown());
+        else
+        {
+            // Only reset hit cooldown if game is not over
+            StartCoroutine(ResetHitCooldown());
+        }
     }
     
     IEnumerator ResetHitCooldown()
@@ -140,10 +173,25 @@ public class GameManager : MonoBehaviour
         // Stop spawning enemies
         StopAllCoroutines();
         
-        // Display game over message
-        if (scoreText != null)
+        // Display high score message
+        if (highScoreText != null)
         {
-            scoreText.text = "GAME OVER\nScore: " + score;
+            highScoreText.gameObject.SetActive(true);
+            highScoreText.text = "SCORE: " + score + "\nHIGH SCORE: " + highScore;
+        }
+        
+        // Display game over message
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(true);
+            gameOverText.text = "GAME OVER";
+        }
+        
+        // Update high score in PlayerPrefs
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.Save();
         }
         
         // Destroy the player
@@ -158,5 +206,17 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemy);
         }
+        
+        Debug.Log("Returning to title screen in " + restartDelay + " seconds");
+        // Return to title screen after delay
+        StartCoroutine(ReturnToTitleAfterDelay());
+    }
+    
+    IEnumerator ReturnToTitleAfterDelay()
+    {
+        yield return new WaitForSeconds(restartDelay);
+        Debug.Log("Loading TitleScene");
+        // Make sure the scene is in the build settings
+        SceneManager.LoadScene("TitleScene");
     }
 }
