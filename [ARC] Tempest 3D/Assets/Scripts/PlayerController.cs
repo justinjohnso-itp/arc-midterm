@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
             transform.RotateAround(planePosition, Vector3.forward, rotationSpeed * horizontal.x * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             FireBullet();
         }

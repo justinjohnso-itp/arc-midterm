@@ -75,34 +75,34 @@ void loop() {
   int joystickValue = 512 + (encoderDirection * 512); // 0=left, 512=center, 1023=right
   Joystick.X(joystickValue);
 
-  // Handle button 1 (q key)
+  // Handle button 1 (tab key)
   if (button1.fallingEdge()) {
-    Keyboard.press('q');
-    Serial.println("Q pressed");
+    Keyboard.press(KEY_TAB);
+    Serial.println("TAB pressed");
   }
   if (button1.risingEdge()) {
-    Keyboard.release('q');
-    Serial.println("Q released");
+    Keyboard.release(KEY_TAB);
+    Serial.println("TAB released");
   }
 
-  // Handle button 2 (w key)
+  // Handle button 2 (space key)
   if (button2.fallingEdge()) {
-    Keyboard.press('w');
-    Serial.println("W pressed");
+    Keyboard.press(' ');
+    Serial.println("SPACE pressed");
   }
   if (button2.risingEdge()) {
-    Keyboard.release('w');
-    Serial.println("W released");
+    Keyboard.release(' ');
+    Serial.println("SPACE released");
   }
 
-  // Handle encoder button (e key)
+  // Handle encoder button (shift key)
   if (encoderButton.fallingEdge()) {
-    Keyboard.press('e');
-    Serial.println("E pressed");
+    Keyboard.press(MODIFIERKEY_SHIFT);
+    Serial.println("SHIFT pressed");
   }
   if (encoderButton.risingEdge()) {
-    Keyboard.release('e');
-    Serial.println("E released");
+    Keyboard.release(MODIFIERKEY_SHIFT);
+    Serial.println("SHIFT released");
   }
 
   // Small delay to avoid flooding
