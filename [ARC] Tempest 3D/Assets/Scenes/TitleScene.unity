@@ -320,7 +320,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use the knob to move and the white button to shoot!
+  m_text: 'Use the knob to move and either button to shoot!
 
     Press any button
     to start'

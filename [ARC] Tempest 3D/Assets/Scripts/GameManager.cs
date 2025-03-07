@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text highScoreText;
     public TMP_Text gameOverText;
+    public GameObject gameOverBackground;
     public GameObject life;
     
     public int score = 0;
@@ -19,20 +20,36 @@ public class GameManager : MonoBehaviour
     private float spawnZ = 200f;
     private GameObject playerInstance;
     private bool isGameOver = false;
-    private float restartDelay = 3f; // Time to wait before returning to title screen
+    private float restartDelay = 1f; // Time to wait before returning to title screen
+    
+    // Difficulty scaling variables
+    private float gameTime = 0f;
+    private float initialSpawnDelay = 0.5f;
+    private float minimumSpawnDelay = 0.02f;
+    private float difficultyScalingFactor = 0.95f;
+    private float difficultyIncreaseInterval = 1f;
+    private float lastDifficultyIncrease = 0f;
+
+    // Scoring variables
+    private float scoreTimer = 0f;
+    private const float SCORE_TICK_INTERVAL = 0.05f;
+    private const int TIME_SCORE_AMOUNT = 1;
+    private const int KILL_SCORE_AMOUNT = 50;
 
     void Start()
     {
         // Load high score at start
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         
-        // Hide game over text initially
+        // Hide game over elements initially
         if (highScoreText != null)
             highScoreText.gameObject.SetActive(false);
         
-        // Hide game over text initially    
         if (gameOverText != null)
             gameOverText.gameObject.SetActive(false);
+            
+        if (gameOverBackground != null)
+            gameOverBackground.SetActive(false);
             
         // Spawn player at starting position with no rotation
         playerInstance = Instantiate(player, new Vector3(0, -4, -1), Quaternion.identity);
@@ -44,6 +61,43 @@ public class GameManager : MonoBehaviour
         SpawnLifeIndicators();
         
         UpdateScoreDisplay();
+    }
+
+    void Update()
+    {
+        if (!isGameOver)
+        {
+            // Track game time for difficulty scaling
+            gameTime += Time.deltaTime;
+            
+            // Update time-based score
+            scoreTimer += Time.deltaTime;
+            if (scoreTimer >= SCORE_TICK_INTERVAL)
+            {
+                scoreTimer -= SCORE_TICK_INTERVAL;
+                AddTimeScore();
+            }
+        }
+    }
+
+    // Calculate current spawn delay based on difficulty
+    private float GetCurrentSpawnDelay()
+    {
+        // Calculate how many difficulty increases have occurred
+        float difficultyLevel = Mathf.Floor(gameTime / difficultyIncreaseInterval);
+        
+        // Calculate spawn delay based on difficulty level
+        float currentDelay = initialSpawnDelay * Mathf.Pow(difficultyScalingFactor, difficultyLevel);
+        
+        // Ensure we don't go below minimum spawn delay
+        return Mathf.Max(currentDelay, minimumSpawnDelay);
+    }
+
+    // Calculate how many enemies to spawn in one batch
+    private int GetEnemySpawnCount()
+    {
+        // More enemies spawn as time progresses
+        return Mathf.Min(5, 1 + Mathf.FloorToInt(gameTime / 30f));
     }
 
     // Static method to reset lives from TitleScript
@@ -73,9 +127,17 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            SpawnSingleEnemy();
-            // Get spawn delay from EnemyController
-            yield return new WaitForSeconds(EnemyController.GetRandomSpawnDelay());
+            // Spawn multiple enemies based on difficulty
+            int enemiesToSpawn = GetEnemySpawnCount();
+            for (int i = 0; i < enemiesToSpawn; i++)
+            {
+                SpawnSingleEnemy();
+                // Small delay between enemies in the same batch
+                yield return new WaitForSeconds(0.1f);
+            }
+            
+            // Wait before spawning next batch, delay decreases over time
+            yield return new WaitForSeconds(GetCurrentSpawnDelay());
         }
     }
 
@@ -108,12 +170,25 @@ public class GameManager : MonoBehaviour
         GameObject newEnemy = Instantiate(enemy, spawnPosLocal, finalRotation);
     }
 
-    public void AddScore()
+    // Add score based on time survived
+    private void AddTimeScore()
     {
-        score += 1;
+        score += TIME_SCORE_AMOUNT;
         UpdateScoreDisplay();
-        
-        // Update high score if current score is higher
+        CheckHighScore();
+    }
+    
+    // Add score based on enemy kills
+    public void AddKillScore()
+    {
+        score += KILL_SCORE_AMOUNT;
+        UpdateScoreDisplay();
+        CheckHighScore();
+    }
+    
+    // Check and update high score if needed
+    private void CheckHighScore()
+    {
         if (score > highScore)
         {
             highScore = score;
@@ -121,6 +196,12 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", highScore);
             PlayerPrefs.Save();
         }
+    }
+
+    // Replace the existing AddScore method
+    public void AddScore()
+    {
+        AddKillScore();
     }
 
     void UpdateScoreDisplay()
@@ -172,6 +253,12 @@ public class GameManager : MonoBehaviour
         {
             gameOverText.gameObject.SetActive(true);
             gameOverText.text = "GAME OVER";
+        }
+        
+        // Show game over background panel
+        if (gameOverBackground != null)
+        {
+            gameOverBackground.SetActive(true);
         }
         
         // Update high score in PlayerPrefs
